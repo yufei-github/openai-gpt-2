@@ -110,3 +110,23 @@ MIT
 
 Disclaimer
 This repo has no affiliation or relationship with OpenAI.
+
+gpt-2-simple的Python项目详细描述
+模型文本asstepssimplesessopenai微调gpt2gpt
+一个简单的Python包，它封装了OpenAI GPT-2文本生成模型（特别是“小”，124M超参数版本）的现有模型微调和生成脚本。此外，这个包允许更容易地生成文本，生成文件以便于管理，允许前缀强制文本以给定短语开头。
+
+用法
+一个将模型下载到本地系统的示例，可以在数据集上精细地打开它。生成一些文本。
+
+警告：预先训练的模型，因此任何微调的模型，是500兆字节！
+
+importgpt_2_simpleasgpt2gpt2.download_gpt2()# model is saved into current directory under /models/124M/sess=gpt2.start_tf_sess()gpt2.finetune(sess,'shakespeare.txt',steps=1000)# steps is max number of training stepsgpt2.generate(sess)
+默认情况下，生成的模型检查点位于/checkpoint/run1中。如果要从该文件夹加载模型并从中生成文本：
+
+importgpt_2_simpleasgpt2sess=gpt2.start_tf_sess()gpt2.load_gpt2(sess)gpt2.generate(sess)
+与textgenrnn一样，您可以使用return_as_list参数生成和保存文本以供以后使用（例如api或bot）。
+
+single_text=gpt2.generate(sess,return_as_list=True)[0]print(single_text)
+如果要在checkpoint文件夹中存储/加载多个模型，可以将run_name参数传递给finetune和load_gpt2
+
+注意：如果要在另一个数据集上进行微调或加载另一个模型，请先重新启动python会话。
